@@ -1,6 +1,9 @@
+import type { FC } from 'react'
 import type { BadgeItem, BadgesBlock } from "../types";
 
-const BadgeLabel = ({ label }: Pick<BadgeItem, 'label'>) => label && <span className="badge-label">{label}</span>
+const BadgeLabel: FC<Pick<BadgeItem, 'label'>> = ({ label }) => (
+	label ? <span className="badge-label">{label}</span> : null
+)
 export function Badge({ item }: { item: BadgeItem }) {
 	return (
 		<div className="badge-item">
