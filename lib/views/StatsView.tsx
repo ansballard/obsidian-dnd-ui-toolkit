@@ -10,15 +10,17 @@ export class StatsView extends BaseView {
 
 	public render(source: string, __: HTMLElement, _: MarkdownPostProcessorContext): string {
 		const parsed = parse(source);
-		const items = Array.isArray(parsed.items) ? parsed.items : [];
+		const items: Array<Partial<StatItem>> = Array.isArray(parsed.items) ? parsed.items : [];
 		const grid = parsed.grid || {};
 
 		const statsBlock: StatsBlock = {
-			items: items.map((item: Partial<StatItem>) => ({
-				label: String(item.label || ''),
-				value: item.value !== undefined ? item.value : '',
-				sublabel: item.sublabel !== undefined ? String(item.sublabel) : undefined
-			})),
+			items: items
+				.filter(({ label }) => !!label)
+				.map(item => ({
+					label: String(item.label),
+					value: item.value ?? '',
+					sublabel: item.sublabel !== undefined ? String(item.sublabel) : undefined
+				})),
 			grid: {
 				columns: typeof grid.columns === 'number' ? grid.columns : undefined
 			}

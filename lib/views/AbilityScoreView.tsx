@@ -1,3 +1,4 @@
+import type { AbilityBlock } from 'lib/types';
 import * as Tmpl from "lib/html-templates"
 import * as Components from "lib/components"
 import { BaseView } from "./BaseView";
@@ -8,7 +9,13 @@ export class AbilityScoreView extends BaseView {
 	public codeblock = "ability";
 
 	public render(source: string, __: HTMLElement, ctx: MarkdownPostProcessorContext): string {
-		const abilityBlock = AbilityService.parseAbilityBlock(source);
+		let abilityBlock: AbilityBlock;
+		try {
+			abilityBlock = AbilityService.parseAbilityBlock(source);
+		} catch (e) {
+			console.warn('Failed to parse ability code block', e)
+			return Tmpl.Render(<pre><code>Failed to parse ability code block</code></pre>)
+		}
 
 		const data: Components.Ability[] = []
 

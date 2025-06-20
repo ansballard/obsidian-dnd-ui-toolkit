@@ -16,8 +16,8 @@ export type SkillItem = {
 export function SkillGrid(props: SkillGridProps) {
 	return (
 		<div className="skills-grid">
-			{props.items.map((item, index) => (
-				<SkillItem item={item} key={index} />
+			{props.items.map(item => (
+				<SkillItem item={item} key={item.label} />
 			))}
 		</div>
 	)

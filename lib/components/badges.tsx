@@ -22,8 +22,8 @@ export function BadgesRow({ data }: { data: BadgesBlock }) {
 
 	return (
 		<div className={`badges-row${dense ? ' dense' : ''}`}>
-			{items.map((item, index) => (
-				<Badge item={item} key={index} />
+			{items.map(item => (
+				<Badge item={item} key={item.label} />
 			))}
 		</div>
 	)

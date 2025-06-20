@@ -11,7 +11,7 @@ export class BadgesView extends BaseView {
 
 	public render(source: string, el: HTMLElement, ctx: MarkdownPostProcessorContext): string {
 		const parsed = parse(source);
-		const items = Array.isArray(parsed.items) ? parsed.items : [];
+		const items: Array<Partial<BadgeItem>> = Array.isArray(parsed.items) ? parsed.items : [];
 
 		// Check if any items contain template variables
 		const hasTemplates = items.some((item: Partial<BadgeItem>) => 
@@ -24,25 +24,27 @@ export class BadgesView extends BaseView {
 		}
 
 		const badgesBlock: BadgesBlock = {
-			items: items.map((item: Partial<BadgeItem>) => {
-				let label = String(item.label || '');
-				let value = String(item.value || '');
+			items: items
+				.filter(item => !!item.label)
+				.map((item: Partial<BadgeItem>) => {
+					let label = String(item.label);
+					let value = String(item.value || '');
 
-				if (templateContext) {
-					if (hasTemplateVariables(label)) {
-						label = processTemplate(label, templateContext);
+					if (templateContext) {
+						if (hasTemplateVariables(label)) {
+							label = processTemplate(label, templateContext);
+						}
+						if (hasTemplateVariables(value)) {
+							value = processTemplate(value, templateContext);
+						}
 					}
-					if (hasTemplateVariables(value)) {
-						value = processTemplate(value, templateContext);
-					}
-				}
 
-				return {
-					reverse: Boolean(item.reverse),
-					label,
-					value
-				};
-			}),
+					return {
+						reverse: Boolean(item.reverse),
+						label,
+						value
+					};
+				}),
 			dense: Boolean(parsed.dense)
 		};
 

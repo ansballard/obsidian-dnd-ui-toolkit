@@ -33,8 +33,8 @@ export function StatsGridItems(data: StatsBlock) {
 
 	return (
 		<StatGrid cols={columns}>
-			{items.map((item, index) => (
-				<StatCard item={item} key={index} />
+			{items.map(item => (
+				<StatCard item={item} key={item.label} />
 			))}
 		</StatGrid>
 	)
