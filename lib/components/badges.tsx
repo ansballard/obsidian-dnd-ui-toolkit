@@ -1,18 +1,12 @@
 import { BadgeItem, BadgesBlock } from "../types";
 
+const BadgeLabel = ({ label }: Pick<BadgeItem, 'label'>) => label && <span className="badge-label">{label}</span>
 export function Badge({ item }: { item: BadgeItem }) {
-	const els = [
-		<>{item.label && <span className="badge-label">{item.label}</span>}</>,
-		<>{item.value && <span className="badge-value">{item.value}</span>}</>,
-	]
-
-	if (item.reverse) {
-		els.reverse()
-	}
-
 	return (
 		<div className="badge-item">
-			{els}
+			{!item.reverse && <BadgeLabel label={item.label} />}
+			{item.value && <span className="badge-value">{item.value}</span>}
+			{item.reverse && <BadgeLabel label={item.label} />}
 		</div>
 	);
 }
