@@ -1,5 +1,5 @@
 import * as Utils from "lib/utils/utils";
-import { HealthBlock } from "lib/types";
+import type { HealthBlock } from "lib/types";
 import { parse } from "yaml";
 
 export interface HealthState {

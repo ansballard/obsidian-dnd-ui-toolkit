@@ -1,4 +1,4 @@
-import { SpellComponentsBlock } from "../types";
+import type { SpellComponentsBlock } from "../types";
 
 export function SpellComponents({ data }: { data: SpellComponentsBlock }) {
 	const { casting_time, range, components, duration } = data;

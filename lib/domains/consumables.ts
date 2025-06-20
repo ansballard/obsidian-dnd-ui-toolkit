@@ -1,5 +1,5 @@
 import * as Utils from "lib/utils/utils";
-import { ConsumableBlock } from "lib/types";
+import type { ConsumableBlock } from "lib/types";
 import { parse } from "yaml";
 
 export interface ConsumableState {

@@ -1,5 +1,5 @@
-import { Frontmatter } from "lib/types";
-import { MarkdownPostProcessorContext } from "obsidian";
+import type { Frontmatter } from "lib/types";
+import type { MarkdownPostProcessorContext } from "obsidian";
 import { App } from "obsidian";
 
 const FrontMatterKeys: Record<string, string[]> = {

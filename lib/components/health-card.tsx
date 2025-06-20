@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { HealthBlock } from "lib/types";
-import { HealthState } from "lib/domains/healthpoints";
+import type { HealthState } from "lib/domains/healthpoints";
 import { Checkbox } from "lib/components/checkbox";
 
 export type HealthCardProps = {

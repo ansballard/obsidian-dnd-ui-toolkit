@@ -1,8 +1,8 @@
-const Handlebars = require('handlebars');
-import { AbilityScores, Frontmatter, SkillsBlock } from '../types';
+import * as Handlebars from 'handlebars';
+import type { AbilityScores, Frontmatter, SkillsBlock } from '../types';
 import { parseAbilityBlockFromDocument, calculateModifier } from '../domains/abilities';
 import { parseSkillsBlock } from '../domains/skills';
-import { MarkdownPostProcessorContext } from 'obsidian';
+import type { MarkdownPostProcessorContext } from 'obsidian';
 
 export interface TemplateContext {
 	frontmatter: Frontmatter;

@@ -1,4 +1,4 @@
-import { BadgeItem, BadgesBlock } from "../types";
+import type { BadgeItem, BadgesBlock } from "../types";
 
 const BadgeLabel = ({ label }: Pick<BadgeItem, 'label'>) => label && <span className="badge-label">{label}</span>
 export function Badge({ item }: { item: BadgeItem }) {

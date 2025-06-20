@@ -1,5 +1,5 @@
 import * as Utils from "lib/utils/utils";
-import { SkillsBlock } from "lib/types";
+import type { SkillsBlock } from "lib/types";
 import { parse } from 'yaml';
 
 export const Skills = [

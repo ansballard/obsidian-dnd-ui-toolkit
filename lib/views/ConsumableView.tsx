@@ -1,11 +1,11 @@
 import { BaseView } from "./BaseView";
-import { App, MarkdownPostProcessorContext, MarkdownRenderChild } from "obsidian";
+import { App, type MarkdownPostProcessorContext, MarkdownRenderChild } from "obsidian";
 import * as ConsumableService from "lib/domains/consumables";
 import { ConsumableCheckboxes } from "lib/components/consumable-checkboxes";
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { KeyValueStore } from "lib/services/kv/kv";
-import { ConsumableState } from "lib/domains/consumables";
+import type { ConsumableState } from "lib/domains/consumables";
 
 export class ConsumableView extends BaseView {
 	public codeblock = "consumable";

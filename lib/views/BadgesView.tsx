@@ -1,10 +1,10 @@
 import * as Tmpl from "lib/html-templates"
 import { BaseView } from "./BaseView";
 import { BadgesRow } from "../components/badges";
-import { MarkdownPostProcessorContext } from "obsidian";
-import { BadgeItem, BadgesBlock } from "lib/types";
+import type { MarkdownPostProcessorContext } from "obsidian";
+import type { BadgeItem, BadgesBlock } from "lib/types";
 import { parse } from 'yaml';
-import { hasTemplateVariables, processTemplate, createTemplateContext, TemplateContext } from '../utils/template';
+import { hasTemplateVariables, processTemplate, createTemplateContext, type TemplateContext } from '../utils/template';
 
 export class BadgesView extends BaseView {
 	public codeblock = "badges";

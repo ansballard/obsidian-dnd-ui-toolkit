@@ -1,12 +1,12 @@
 import { BaseView } from "./BaseView";
-import { App, MarkdownPostProcessorContext, MarkdownRenderChild } from "obsidian";
+import { App, type MarkdownPostProcessorContext, MarkdownRenderChild } from "obsidian";
 import type { InitiativeState } from "lib/components/initiative";
 import { Initiative } from "lib/components/initiative";
 import * as InitiativeService from "lib/domains/initiative";
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { KeyValueStore } from "lib/services/kv/kv";
-import { InitiativeBlock } from "lib/types";
+import type { InitiativeBlock } from "lib/types";
 
 export class InitiativeView extends BaseView {
 	public codeblock = "initiative";

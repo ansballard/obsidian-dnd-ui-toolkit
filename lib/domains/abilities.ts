@@ -1,5 +1,5 @@
-import { AbilityBlock, GenericBonus, AbilityScores } from 'lib/types';
-import { MarkdownPostProcessorContext } from 'obsidian';
+import type { AbilityBlock, GenericBonus, AbilityScores } from 'lib/types';
+import type { MarkdownPostProcessorContext } from 'obsidian';
 import * as Utils from "lib/utils/utils";
 import { parse } from 'yaml';
 

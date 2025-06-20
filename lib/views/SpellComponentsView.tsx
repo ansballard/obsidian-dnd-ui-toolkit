@@ -1,8 +1,8 @@
 import * as Tmpl from "lib/html-templates"
 import { BaseView } from "./BaseView";
 import { SpellComponents } from "../components/spell-components";
-import { MarkdownPostProcessorContext } from "obsidian";
-import { SpellComponentsBlock } from "lib/types";
+import type { MarkdownPostProcessorContext } from "obsidian";
+import type { SpellComponentsBlock } from "lib/types";
 import { parse } from 'yaml';
 
 export class SpellComponentsView extends BaseView {

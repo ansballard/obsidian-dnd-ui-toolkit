@@ -1,10 +1,10 @@
 import * as Tmpl from "lib/html-templates"
 import { type SkillItem, SkillGrid } from "lib/components/skill-cards"
 import { BaseView } from "./BaseView";
-import { MarkdownPostProcessorContext } from "obsidian";
+import type { MarkdownPostProcessorContext } from "obsidian";
 import * as AbilityService from "lib/domains/abilities"
 import * as SkillsService from "lib/domains/skills"
-import { AbilityBlock } from "lib/types";
+import type { AbilityBlock } from "lib/types";
 
 export class SkillsView extends BaseView {
 	public codeblock = "skills";

@@ -1,4 +1,4 @@
-import { Vault } from 'obsidian';
+import type { Vault } from 'obsidian';
 
 export interface DataStore {
 	loadData(): Promise<any>;

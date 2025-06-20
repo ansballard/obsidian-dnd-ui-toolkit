@@ -1,5 +1,5 @@
 import * as Utils from "lib/utils/utils";
-import { InitiativeBlock, InitiativeItem } from "lib/types";
+import type { InitiativeBlock, InitiativeItem } from "lib/types";
 import { parse } from "yaml";
 
 export interface InitiativeState {

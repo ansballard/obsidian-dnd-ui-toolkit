@@ -1,5 +1,5 @@
-import { ConsumableBlock } from "lib/types";
-import { ConsumableState } from "lib/domains/consumables";
+import type { ConsumableBlock } from "lib/types";
+import type { ConsumableState } from "lib/domains/consumables";
 import { Checkbox } from "lib/components/checkbox";
 
 export type ConsumableCheckboxesProps = {
