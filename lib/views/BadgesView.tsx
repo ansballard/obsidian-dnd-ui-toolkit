@@ -4,47 +4,25 @@ import { BadgesRow } from "../components/badges";
 import type { MarkdownPostProcessorContext } from "obsidian";
 import type { BadgeItem, BadgesBlock } from "lib/types";
 import { parse } from 'yaml';
-import { hasTemplateVariables, processTemplate, createTemplateContext, type TemplateContext } from '../utils/template';
+import { render } from 'ejs'
 
 export class BadgesView extends BaseView {
 	public codeblock = "badges";
 
-	public render(source: string, el: HTMLElement, ctx: MarkdownPostProcessorContext): string {
+	public render(rawSource: string, _el: HTMLElement, ctx: MarkdownPostProcessorContext): string {
+		const source = render(rawSource, {frontmatter: this.frontmatter(ctx)})
+
 		const parsed = parse(source);
 		const items: Array<Partial<BadgeItem>> = Array.isArray(parsed.items) ? parsed.items : [];
-
-		// Check if any items contain template variables
-		const hasTemplates = items.some((item: Partial<BadgeItem>) => 
-			hasTemplateVariables(String(item.label || '')) || hasTemplateVariables(String(item.value || ''))
-		);
-
-		let templateContext: TemplateContext | null = null;
-		if (hasTemplates) {
-			templateContext = createTemplateContext(el, ctx, this);
-		}
 
 		const badgesBlock: BadgesBlock = {
 			items: items
 				.filter(item => !!item.label)
-				.map((item: Partial<BadgeItem>) => {
-					let label = String(item.label);
-					let value = String(item.value || '');
-
-					if (templateContext) {
-						if (hasTemplateVariables(label)) {
-							label = processTemplate(label, templateContext);
-						}
-						if (hasTemplateVariables(value)) {
-							value = processTemplate(value, templateContext);
-						}
-					}
-
-					return {
+				.map((item: Partial<BadgeItem>) => ({
 						reverse: Boolean(item.reverse),
-						label,
-						value
-					};
-				}),
+						label: String(item.label),
+						value: String(item.value || ''),
+				})),
 			dense: Boolean(parsed.dense)
 		};
 

@@ -4,11 +4,13 @@ import * as Components from "lib/components"
 import { BaseView } from "./BaseView";
 import type { MarkdownPostProcessorContext } from "obsidian";
 import * as AbilityService from "lib/domains/abilities"
+import {render} from 'ejs'
 
 export class AbilityScoreView extends BaseView {
 	public codeblock = "ability";
 
-	public render(source: string, __: HTMLElement, ctx: MarkdownPostProcessorContext): string {
+	public render(rawSource: string, el: HTMLElement, ctx: MarkdownPostProcessorContext): string {
+		const source = render(rawSource, {frontmatter: this.frontmatter(ctx)})
 		let abilityBlock: AbilityBlock;
 		try {
 			abilityBlock = AbilityService.parseAbilityBlock(source);
