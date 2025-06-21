@@ -8,7 +8,7 @@ import { parse } from 'yaml';
 export class SpellComponentsView extends BaseView {
 	public codeblock = "spell-components";
 
-	public render(source: string, __: HTMLElement, _: MarkdownPostProcessorContext): string {
+	public async render(source: string, __: HTMLElement, _: MarkdownPostProcessorContext) {
 		const parsed = parse(source);
 
 		const spellComponentsBlock: SpellComponentsBlock = {

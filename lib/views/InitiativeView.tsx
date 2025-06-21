@@ -18,7 +18,7 @@ export class InitiativeView extends BaseView {
 		this.kv = kv;
 	}
 
-	public render(source: string, el: HTMLElement, ctx: MarkdownPostProcessorContext): void {
+	public async render(source: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) {
 		const initiativeMarkdown = new InitiativeMarkdown(el, source, this.kv);
 		ctx.addChild(initiativeMarkdown);
 	}

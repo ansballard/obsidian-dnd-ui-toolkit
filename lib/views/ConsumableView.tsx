@@ -17,7 +17,7 @@ export class ConsumableView extends BaseView {
 		this.kv = kv;
 	}
 
-	public render(source: string, el: HTMLElement, ctx: MarkdownPostProcessorContext): void {
+	public async render(source: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) {
 		const consumableMarkdown = new ConsumableMarkdown(el, source, this.kv);
 		ctx.addChild(consumableMarkdown);
 	}

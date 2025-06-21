@@ -9,13 +9,12 @@ import type { AbilityBlock } from "lib/types";
 export class SkillsView extends BaseView {
 	public codeblock = "skills";
 
-	public render(source: string, el: HTMLElement, ctx: MarkdownPostProcessorContext): string {
-		const abilityBlock = AbilityService.parseAbilityBlockFromDocument(el, ctx);
+	public async render(source: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) {
+		const frontmatter = this.frontmatter(ctx)
+		const abilityBlock = AbilityService.parseAbilityBlockFromFrontmatter(frontmatter, this.getSettings())
 		const skillsBlock = SkillsService.parseSkillsBlock(source);
 
 		const data: SkillItem[] = []
-
-		const frontmatter = this.frontmatter(ctx)
 
 		for (const skill of SkillsService.Skills) {
 			const isHalfProficient = skillsBlock.half_proficiencies.find((x) => {

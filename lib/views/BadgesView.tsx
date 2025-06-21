@@ -9,7 +9,7 @@ import { render } from 'ejs'
 export class BadgesView extends BaseView {
 	public codeblock = "badges";
 
-	public render(rawSource: string, _el: HTMLElement, ctx: MarkdownPostProcessorContext): string {
+	public async render(rawSource: string, _el: HTMLElement, ctx: MarkdownPostProcessorContext) {
 		const source = render(rawSource, {frontmatter: this.frontmatter(ctx)})
 
 		const parsed = parse(source);

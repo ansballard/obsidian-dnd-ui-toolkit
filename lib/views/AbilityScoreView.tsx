@@ -1,28 +1,17 @@
-import type { AbilityBlock } from 'lib/types';
 import * as Tmpl from "lib/html-templates"
 import * as Components from "lib/components"
 import { BaseView } from "./BaseView";
 import type { MarkdownPostProcessorContext } from "obsidian";
 import * as AbilityService from "lib/domains/abilities"
-import {render} from 'ejs'
 
 export class AbilityScoreView extends BaseView {
 	public codeblock = "ability";
 
-	public render(rawSource: string, el: HTMLElement, ctx: MarkdownPostProcessorContext): string {
-		const source = render(rawSource, {frontmatter: this.frontmatter(ctx)})
-		let abilityBlock: AbilityBlock;
-		try {
-			abilityBlock = AbilityService.parseAbilityBlock(source);
-		} catch (e) {
-			console.warn('Failed to parse ability code block', e)
-			return Tmpl.Render(<pre><code>Failed to parse ability code block</code></pre>)
-		}
+	public async render(rawSource: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) {
+		const frontmatter = this.frontmatter(ctx)
+		const abilityBlock = AbilityService.parseAbilityBlockFromFrontmatter(frontmatter, this.getSettings())
 
 		const data: Components.Ability[] = []
-
-		const frontmatter = this.frontmatter(ctx)
-
 
 		for (const [key, value] of Object.entries(abilityBlock.abilities)) {
 			const isProficient = abilityBlock.proficiencies.includes(key);

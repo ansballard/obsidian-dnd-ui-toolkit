@@ -1,7 +1,28 @@
-import type { AbilityBlock, GenericBonus, AbilityScores } from 'lib/types';
+import type {
+	AbilityBlock,
+	DndUIToolkitSettings,
+	GenericBonus,
+	AbilityScores,
+	Frontmatter,
+} from "lib/types";
 import type { MarkdownPostProcessorContext } from 'obsidian';
 import * as Utils from "lib/utils/utils";
 import { parse } from 'yaml';
+
+export function parseAbilityBlockFromFrontmatter(frontmatter: Frontmatter, settings: DndUIToolkitSettings): AbilityBlock {
+	return {
+		abilities: {
+			strength: frontmatter[`${settings.abilityScorePrefix}Strength`],
+			dexterity: frontmatter[`${settings.abilityScorePrefix}Dexterity`],
+			constitution: frontmatter[`${settings.abilityScorePrefix}Constitution`],
+			intelligence: frontmatter[`${settings.abilityScorePrefix}Intelligence`],
+			wisdom: frontmatter[`${settings.abilityScorePrefix}Wisdom`],
+			charisma: frontmatter[`${settings.abilityScorePrefix}Charisma`],
+		},
+		bonuses: [],
+		proficiencies: [],
+	}
+}
 
 export function parseAbilityBlockFromDocument(el: HTMLElement, ctx: MarkdownPostProcessorContext): AbilityBlock {
 	// Extract all ability code blocks from the document

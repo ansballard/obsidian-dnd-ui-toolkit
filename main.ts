@@ -1,5 +1,6 @@
 import { App, Plugin, PluginSettingTab, Setting } from "obsidian";
 import { StatsView } from "lib/views/StatsView";
+// import { LinksView } from "lib/views/LinksView";
 import { AbilityScoreView } from "lib/views/AbilityScoreView";
 import { BaseView } from "lib/views/BaseView";
 import { SkillsView } from "lib/views/SkillsView";
@@ -10,34 +11,7 @@ import { InitiativeView } from "lib/views/InitiativeView";
 import { SpellComponentsView } from "lib/views/SpellComponentsView";
 import { KeyValueStore } from "lib/services/kv/kv";
 import { JsonDataStore } from "./lib/services/kv/local-file-store";
-
-interface DndUIToolkitSettings {
-	statePath: string;
-
-	// Color variables
-	colorBgPrimary: string;
-	colorBgSecondary: string;
-	colorBgTertiary: string;
-	colorBgHover: string;
-	colorBgDarker: string;
-	colorBgGroup: string;
-	colorBgProficient: string;
-
-	colorTextPrimary: string;
-	colorTextSecondary: string;
-	colorTextSublabel: string;
-	colorTextBright: string;
-	colorTextMuted: string;
-	colorTextGroup: string;
-
-	colorBorderPrimary: string;
-	colorBorderActive: string;
-	colorBorderFocus: string;
-
-	colorAccentTeal: string;
-	colorAccentRed: string;
-	colorAccentPurple: string;
-}
+import type {DndUIToolkitSettings} from './lib/types'
 
 const DEFAULT_SETTINGS: DndUIToolkitSettings = {
 	statePath: ".dnd-ui-toolkit-state.json",
@@ -65,6 +39,11 @@ const DEFAULT_SETTINGS: DndUIToolkitSettings = {
 	colorAccentTeal: "#64d8cb",
 	colorAccentRed: "#e57373",
 	colorAccentPurple: "#b39ddb",
+
+	abilityScorePrefix: "AbilityScore_",
+	abilityModifierPrefix: "AbilityModifier_",
+	skillPrefix: "Skill_",
+	savingThrowPrefix: "AbilitySavingThrow_",
 
 	// WOTC/Beyond color palette
 	/*
@@ -148,6 +127,7 @@ export default class DndUIToolkitPlugin extends Plugin {
 		const views: BaseView[] = [
 			// Static
 			new StatsView(app),
+			// new LinksView(app),
 			new AbilityScoreView(app),
 			new SkillsView(app),
 			new BadgesView(app),
@@ -163,9 +143,7 @@ export default class DndUIToolkitPlugin extends Plugin {
 			// Use an arrow function to preserve the 'this' context
 			this.registerMarkdownCodeBlockProcessor(
 				view.codeblock,
-				(source, el, ctx) => {
-					view.register(source, el, ctx);
-				}
+				async (source, el, ctx) => view.register(source, el, ctx)
 			);
 		}
 
@@ -290,6 +268,28 @@ class DndSettingsTab extends PluginSettingTab {
 			})
 		})
 
+		containerEl.createEl("h3", { text: "Property Prefixes" });
+
+		this.addTextSetting(containerEl, 'Ability Score Prefix', 'abilityScorePrefix')
+		this.addTextSetting(containerEl, 'Ability Modifier Prefix', 'abilityModifierPrefix')
+		this.addTextSetting(containerEl, 'Skill Prefix', 'skillPrefix')
+		this.addTextSetting(containerEl, "Saving Throw Prefix", "savingThrowPrefix");
+	}
+
+	private addTextSetting(
+		containerEl: HTMLElement,
+		name: string,
+		settingKey: keyof DndUIToolkitSettings,
+	): void {
+		new Setting(containerEl).setName(name).addText((text) =>
+			text
+				.setPlaceholder(DEFAULT_SETTINGS[settingKey])
+				.setValue(this.plugin.settings[settingKey])
+				.onChange(async (value) => {
+					this.plugin.settings[settingKey] = value;
+					await this.plugin.saveSettings();
+				})
+		);
 	}
 
 	// Helper method to add color picker setting
